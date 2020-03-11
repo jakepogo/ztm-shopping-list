@@ -1,71 +1,19 @@
-var button,
-    input,
-    ul;
+var css = document.querySelector("h3");
+var color1 = document.querySelector(".color1");
+var color2 = document.querySelector(".color2");
+var body = document.getElementById("gradient");
 
-function inputLength() {
-    'use strict';
-	return input.value.length;
+function setGradient() {
+	body.style.background = 
+	"linear-gradient(to right, " 
+	+ color1.value 
+	+ ", " 
+	+ color2.value 
+	+ ")";
+
+	css.textContent = body.style.background + ";";
 }
 
-function removeItem(event) {
-    'use strict';
-    var lis = document.querySelectorAll('li'),
-        myItem = event.target.id.toString();
+color1.addEventListener("input", setGradient);
 
-    myItem = myItem.replace('button', '')
-    lis[myItem].classList.toggle('done');
-}
-
-function createListButtons() {
-    'use strict';
-    var lis = document.querySelectorAll('li'),
-        i = 0,
-        b = {};
-    
-    for (i = 0; i < lis.length; i++) {
-        lis[i].id = 'item' + i;
-        if (document.querySelector('#button' + i) == null) {
-            b = document.createElement('button');
-            b.id = 'button' + i;
-            b.appendChild(document.createTextNode('Delete'));
-            lis[i].appendChild(b);
-            b.addEventListener("click", removeItem);
-            b = {};
-        }
-    }
-}
-
-function createListElement() {
-    'use strict';
-	var li = document.createElement("li");
-	li.appendChild(document.createTextNode(input.value));
-	ul.appendChild(li);
-	input.value = "";
-    createListButtons();
-}
-
-function addListAfterClick() {
-    'use strict';
-	if (inputLength() > 0) {
-		createListElement();
-	}
-}
-
-function addListAfterKeypress(event) {
-    'use strict';
-	if (inputLength() > 0 && event.keyCode === 13) {
-		createListElement();
-	}
-}
-
-window.onload = function () {
-    'use strict';
-    button = document.getElementById("enter"),
-    input = document.getElementById("userinput"),
-    ul = document.querySelector("ul");
-
-    button.addEventListener("click", addListAfterClick);
-    input.addEventListener("keypress", addListAfterKeypress);
-
-    createListButtons(); 
-};
+color2.addEventListener("input", setGradient);
